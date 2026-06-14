@@ -1,5 +1,6 @@
 package com.threadtrace.log;
 
+import java.util.Locale;
 import java.util.regex.*;
 
 public class LogParser
@@ -57,7 +58,8 @@ public class LogParser
         Matcher match = logPattern.matcher(rawLine);
         if(match.matches())
         {
-            String level = match.group("level");
+            String level = match.group("level").toUpperCase(Locale.ROOT);
+            String filter = levelFilter == null ? null : levelFilter.toUpperCase(Locale.ROOT);
             String component = match.group("component");
 
             String timeStamp = match.group("timestamp");
@@ -65,6 +67,7 @@ public class LogParser
 
             String message = match.group("message");
 
+            if(filter != null && !level.equals(filter)) return;
             if (levelFilter != null && !level.contains(levelFilter)) return;
             if (sinceTimestamp != null && timeStamp.compareTo(sinceTimestamp) < 0) return;
             if (untilTimestamp != null && timeStamp.compareTo(untilTimestamp) > 0) return;
