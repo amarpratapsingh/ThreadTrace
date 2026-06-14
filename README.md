@@ -22,7 +22,7 @@ java -jar threadtrace.jar app.log
 git clone https://github.com/user/threadtrace.git
 cd threadtrace
 mvn package
-java -jar target/threadtrace-1.0-SNAPSHOT.jar app.log
+java -jar target/threadtrace.jar app.log
 ```
 
 ## Usage
